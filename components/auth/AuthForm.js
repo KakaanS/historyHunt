@@ -48,7 +48,7 @@ const AuthForm = ({ isLogin, onSubmit, credentialsInvalid }) => {
       <View>
         <Input
           label="Email Address"
-          onUpdateValue={updateInputValueHandler.bind(this, "email")} // on changeText ersatt av en mer sofistikerad funktion
+          onUpdateValue={updateInputValueHandler.bind(this, "email")}
           value={enteredEmail}
           keyboardType="email-address"
           isInvalid={emailIsInvalid}

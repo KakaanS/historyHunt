@@ -11,7 +11,7 @@ const authenticate = async (mode, email, password) => {
       returnSecureToken: true,
     }
   );
-  return resp.data;
+  return resp.data.idToken;
 };
 
 export const signupUser = (email, password) => {
@@ -20,4 +20,5 @@ export const signupUser = (email, password) => {
 
 export const signinUser = (email, password) => {
   return authenticate("signInWithPassword", email, password);
+  console.log("signinUser");
 };

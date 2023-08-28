@@ -13,15 +13,13 @@ const AuthContent = ({ isLogin, onAuthenticate }) => {
     confirmEmail: false,
     confirmPassword: false,
   });
-
   const navigation = useNavigation();
 
   const switchAuthModeHandler = () => {
     if (isLogin) {
-      navigation.navigate("Signup");
-    }
-    if (!isLogin) {
-      navigation.navigate("Login");
+      navigation.replace("Signup");
+    } else {
+      navigation.replace("Login");
     }
   };
 

@@ -9,7 +9,7 @@ const WelcomeScreen = () => {
   useEffect(() => {
     axios
       .get(
-        "https://authentication-app-9214b-default-rtdb.europe-west1.firebasedatabase.app/test.json?auth=" +
+        "https://authentication-app-614a8-default-rtdb.europe-west1.firebasedatabase.app/test.json?auth=" +
           authCtx.token
       )
       .then((resp) => {

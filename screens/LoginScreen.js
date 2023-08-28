@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import { useContext, useState } from "react";
 
 import AuthContent from "../components/auth/AuthContent.js";
-import * as http from "../util/http.js";
-import { AuthContext } from "../store/AuthContext";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
+import * as http from "../util/http";
+import { AuthContext } from "../store/AuthContext";
 
 const LoginScreen = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -21,8 +21,9 @@ const LoginScreen = () => {
   };
 
   if (isAuthenticating) {
-    return <LoadingOverlay message="Logging in..." />;
+    return <LoadingOverlay message="Logging in user..." />;
   }
+
   return <AuthContent isLogin onAuthenticate={authenticationHandler} />;
 };
 
