@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { AuthContext } from "../store/AuthContext";
 
 import Button from "../components/ui/Button";
+import { Colors } from "../constants/styles";
 
 const WelcomeScreen = () => {
   const [message, setMessage] = useState(null);
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 32,
+    backgroundColor: Colors.primary100,
   },
   title: {
     fontSize: 20,

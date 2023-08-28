@@ -1,6 +1,7 @@
 import axios from "axios";
+import { REACT_APP_API_KEY } from "@env";
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const authenticate = async (mode, email, password) => {
   const resp = await axios.post(
@@ -20,5 +21,4 @@ export const signupUser = (email, password) => {
 
 export const signinUser = (email, password) => {
   return authenticate("signInWithPassword", email, password);
-  console.log("signinUser");
 };
