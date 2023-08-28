@@ -34,7 +34,7 @@ const AuthStack = () => {
     </Stack.Navigator>
   );
 };
-
+/* 
 const AuthenticatedStack = () => {
   const authCtx = useContext(AuthContext);
   return (
@@ -57,10 +57,14 @@ const AuthenticatedStack = () => {
       <Stack.Screen name="AllPlaces" component={AllPlaces} />
     </Stack.Navigator>
   );
-};
+}; */
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
+
+  const handleLogout = () => {
+    authCtx.logout();
+  };
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -78,6 +82,15 @@ const Navigation = () => {
         <Drawer.Navigator>
           <Drawer.Screen name="Welcome" component={WelcomeScreen} />
           <Drawer.Screen name="AllPlaces" component={AllPlaces} />
+          <Drawer.Screen
+            name="Logout"
+            options={{ title: "Logout" }}
+            component={() => (
+              <View>
+                <Button title="Logout" onPress={handleLogout} />
+              </View>
+            )}
+          />
         </Drawer.Navigator>
       ) : (
         <AuthStack />
