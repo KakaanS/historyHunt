@@ -1,7 +1,7 @@
 export const Colors = {
-  primary100: "#f9beda",
-  primary500: "#c30b64",
-  primary800: "#610440",
-  error100: "#fcdcbf",
-  error500: "#f37c13",
+  primary100: "#c2e0ff", // Light blue
+  primary500: "#1582e6", // Blue
+  primary800: "#0b50a1", // Dark blue
+  error100: "#ffe0c2", // Light orange
+  error500: "#e63900", // Orange-red
 };

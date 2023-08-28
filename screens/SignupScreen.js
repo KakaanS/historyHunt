@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import { useContext, useState } from "react";
 
 import AuthContent from "../components/auth/AuthContent.js";
-import * as http from "../util/http.js";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
+import * as http from "../util/http";
 import { AuthContext } from "../store/AuthContext";
 
 const SignupScreen = () => {
@@ -18,12 +18,13 @@ const SignupScreen = () => {
       console.log(error);
       alert("Wrong credentials");
     }
-
     setIsAuthenticating(false);
   };
+
   if (isAuthenticating) {
-    return <LoadingOverlay message="Creating account..." />;
+    return <LoadingOverlay message="Creating user..." />;
   }
+
   return <AuthContent onAuthenticate={authenticationHandler} />;
 };
 

@@ -1,15 +1,15 @@
+import { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import { useContext, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
-import { Colors } from "./constants/styles";
-import IconButton from "./components/ui/IconButton";
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
+import IconButton from "./components/ui/IconButton";
+import { Colors } from "./constants/styles";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +30,6 @@ const AuthStack = () => {
 
 const AuthenticatedStack = () => {
   const authCtx = useContext(AuthContext);
-
   return (
     <Stack.Navigator
       screenOptions={{
@@ -39,10 +38,10 @@ const AuthenticatedStack = () => {
         contentStyle: { backgroundColor: Colors.primary100 },
         headerRight: ({ tintColor }) => (
           <IconButton
-            color={tintColor}
             icon="exit"
-            onPress={authCtx.logout}
+            color={tintColor}
             size={24}
+            onPress={authCtx.logout}
           />
         ),
       }}
@@ -57,13 +56,11 @@ const Navigation = () => {
 
   useEffect(() => {
     const fetchToken = async () => {
-      const tokenString = await AsyncStorage.getItem("appToken");
-      if (tokenString) {
-        const tokenObject = JSON.parse(tokenString);
-        authCtx.authenticate(tokenObject);
+      const token = await AsyncStorage.getItem("appToken");
+      if (token) {
+        authCtx.authenticate(token);
       }
     };
-
     fetchToken();
   }, [authCtx]);
 

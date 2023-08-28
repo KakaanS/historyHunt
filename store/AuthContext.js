@@ -11,20 +11,14 @@ export const AuthContext = createContext({
 const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const isAuthenticated = !!token;
-
-  const authenticate = (tokenObject) => {
-    setToken(tokenObject);
-    AsyncStorage.setItem("appToken", JSON.stringify(tokenObject));
+  const authenticate = (token) => {
+    setToken(token);
+    AsyncStorage.setItem("appToken", token);
   };
 
-  const logout = async () => {
-    try {
-      setToken(null);
-      await AsyncStorage.clear();
-      console.log("AsyncStorage cleared after logout");
-    } catch (error) {
-      console.error("Error while logging out:", error);
-    }
+  const logout = () => {
+    setToken(null);
+    AsyncStorage.removeItem("appToken");
   };
 
   const value = {

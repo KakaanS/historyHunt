@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
 import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { AuthContext } from "../store/AuthContext";
 
 const WelcomeScreen = () => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null);
+  const authCtx = useContext(AuthContext);
   useEffect(() => {
     axios
       .get(
-        "https://authentication-app-614a8-default-rtdb.europe-west1.firebasedatabase.app/test.json"
+        "https://authentication-app-9214b-default-rtdb.europe-west1.firebasedatabase.app/test.json?auth=" +
+          authCtx.token
       )
       .then((resp) => {
         setMessage(resp.data);
