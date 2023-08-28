@@ -2,6 +2,7 @@
 import { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -9,7 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
-import AllPlaces from "./screens/AllPlaces";
+import AllPlaces from "./screens/AllPlacesScreen";
 
 //Tools
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
@@ -17,6 +18,7 @@ import IconButton from "./components/ui/IconButton";
 import { Colors } from "./constants/styles";
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const AuthStack = () => {
   return (
@@ -72,7 +74,14 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      {authCtx.isAuthenticated ? <AuthenticatedStack /> : <AuthStack />}
+      {authCtx.isAuthenticated ? (
+        <Drawer.Navigator>
+          <Drawer.Screen name="Welcome" component={WelcomeScreen} />
+          <Drawer.Screen name="AllPlaces" component={AllPlaces} />
+        </Drawer.Navigator>
+      ) : (
+        <AuthStack />
+      )}
     </NavigationContainer>
   );
 };
