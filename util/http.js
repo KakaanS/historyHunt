@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "AIzaSyCIYFJbhYyG1C6jpvpxARx59Jzus5mMsr4";
+const API_KEY = process.env.API_KEY;
 
 const authenticate = async (mode, email, password) => {
   const resp = await axios.post(

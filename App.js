@@ -1,12 +1,17 @@
+//Main
 import { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+//Screens
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
+import AllPlaces from "./screens/AllPlaces";
+
+//Tools
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
 import { Colors } from "./constants/styles";
@@ -47,6 +52,7 @@ const AuthenticatedStack = () => {
       }}
     >
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen name="AllPlaces" component={AllPlaces} />
     </Stack.Navigator>
   );
 };
