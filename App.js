@@ -1,17 +1,33 @@
+//Main
 import { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
+} from "@react-navigation/drawer";
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
+//Screens
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
+import AllPlaces from "./screens/AllPlacesScreen";
+import AddplaceScreen from "./screens/AddPlaceScreen";
+
+//Tools
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
 import { Colors } from "./constants/styles";
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const AuthStack = () => {
   return (
@@ -28,26 +44,18 @@ const AuthStack = () => {
   );
 };
 
-const AuthenticatedStack = () => {
+const CustomDrawerContent = (props) => {
   const authCtx = useContext(AuthContext);
+
+  const handleLogout = () => {
+    authCtx.logout();
+  };
+
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: { backgroundColor: Colors.primary500 },
-        headerTintColor: "white",
-        contentStyle: { backgroundColor: Colors.primary100 },
-        headerRight: ({ tintColor }) => (
-          <IconButton
-            icon="exit"
-            color={tintColor}
-            size={24}
-            onPress={authCtx.logout}
-          />
-        ),
-      }}
-    >
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
-    </Stack.Navigator>
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem label="Logout" onPress={handleLogout} />
+    </DrawerContentScrollView>
   );
 };
 
@@ -66,7 +74,35 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      {authCtx.isAuthenticated ? <AuthenticatedStack /> : <AuthStack />}
+      {authCtx.isAuthenticated ? (
+        <Drawer.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: Colors.primary500 },
+            headerTintColor: "white",
+            contentStyle: { backgroundColor: Colors.primary100 },
+          }}
+          drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
+          <Drawer.Screen name="Welcome" component={WelcomeScreen} />
+          <Drawer.Screen
+            name="AllPlaces"
+            component={AllPlaces}
+            options={({ navigation }) => ({
+              headerRight: ({ tintColor }) => (
+                <IconButton
+                  icon="add"
+                  color={tintColor}
+                  size={24}
+                  onPress={() => navigation.navigate("AddPlace")}
+                />
+              ),
+            })}
+          />
+          <Drawer.Screen name="AddPlace" component={AddplaceScreen} />
+        </Drawer.Navigator>
+      ) : (
+        <AuthStack />
+      )}
     </NavigationContainer>
   );
 };
