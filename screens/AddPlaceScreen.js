@@ -1,7 +1,7 @@
 import PlaceForm from "../components/places/PlaceForm";
 
-const AddPlace = () => {
+const AddPlaceScreen = () => {
   return <PlaceForm />;
 };
 
-export default AddPlace;
+export default AddPlaceScreen;
