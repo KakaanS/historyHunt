@@ -18,7 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
-import AllPlaces from "./screens/AllPlacesScreen";
+import AllPlacesScreen from "./screens/AllPlacesScreen";
 import AddplaceScreen from "./screens/AddPlaceScreen";
 
 //Tools
@@ -85,8 +85,8 @@ const Navigation = () => {
         >
           <Drawer.Screen name="Welcome" component={WelcomeScreen} />
           <Drawer.Screen
-            name="AllPlaces"
-            component={AllPlaces}
+            name="AllPlacesScreen"
+            component={AllPlacesScreen}
             options={({ navigation }) => ({
               headerRight: ({ tintColor }) => (
                 <IconButton
