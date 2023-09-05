@@ -2,7 +2,7 @@ import axios from "axios";
 import { REACT_APP_API_KEY, REACT_APP_GOOGLE_API_KEY } from "@env";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
-const GOOGLE_API_KEY = "AIzaSyC0kFRGRRYCCRo3yrPgk-PuxBKEeh2KpD0";
+const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 export const createLocationUrl = ({ lat, lng }) => {
   return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng},&zoom=14&size=400x200&maptype=roadmap
