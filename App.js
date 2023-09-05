@@ -11,8 +11,6 @@ import {
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Button } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 //Screens
 import LoginScreen from "./screens/LoginScreen";
