@@ -4,12 +4,10 @@ import { getCurrentPositionAsync } from "expo-location";
 
 import OutlinedButton from "../ui/OutlinedButton";
 import { Colors } from "../../constants/styles";
-import { createLocationUrl } from "../../util/http";
-import IconButton from "../ui/IconButton";
+import { createLocationUrl, getReadableAdress } from "../../util/http";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { set } from "react-native-reanimated";
 
-const LocationPicker = () => {
+const LocationPicker = ({ locationHandler }) => {
   const [pickedLocation, setPickedLocation] = useState();
   const navigation = useNavigation();
   const route = useRoute();
@@ -22,6 +20,16 @@ const LocationPicker = () => {
       });
     }
   }, [route]);
+
+  useEffect(() => {
+    const getAdressOfLocation = async () => {
+      if (pickedLocation) {
+        const adress = await getReadableAdress(pickedLocation);
+        locationHandler({ ...pickedLocation, adress });
+      }
+    };
+    getAdressOfLocation();
+  }, [pickedLocation, locationHandler]);
 
   const getLocation = async () => {
     const location = await getCurrentPositionAsync();

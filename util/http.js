@@ -10,6 +10,17 @@ export const createLocationUrl = ({ lat, lng }) => {
   return url;
 };
 
+export const getReadableAdress = async ({ lat, lng }) => {
+  const resp = await fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GOOGLE_API_KEY}`
+  );
+  if (!resp.ok) {
+    throw new Error("Could not fetch readableADRESS");
+  }
+  const data = await resp.json();
+  return data.results[0].formatted_address;
+};
+
 const authenticate = async (mode, email, password) => {
   const resp = await axios.post(
     `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=` + API_KEY,

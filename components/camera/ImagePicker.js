@@ -10,7 +10,7 @@ import {
 } from "expo-location";
 import OutlinedButton from "../ui/OutlinedButton";
 
-const ImagePicker = () => {
+const ImagePicker = ({ imageHandler }) => {
   const cameraRef = useRef();
   const [photo, setPhoto] = useState();
   const [isCameraReady, setCameraReady] = useState(false);
@@ -48,6 +48,7 @@ const ImagePicker = () => {
         quality: 0.8,
       });
       setPhoto(photo);
+      imageHandler(photo.uri);
     }
   };
 
@@ -70,7 +71,7 @@ const ImagePicker = () => {
         color={Colors.primary100}
         pressHandler={takePicture}
       />
-      <View style={styles.preview}>{previewContent}</View>
+      {photo && <View style={styles.preview}>{previewContent}</View>}
     </View>
   );
 };
