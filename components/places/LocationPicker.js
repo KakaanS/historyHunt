@@ -4,7 +4,7 @@ import { getCurrentPositionAsync } from "expo-location";
 
 import OutlinedButton from "../ui/OutlinedButton";
 import { Colors } from "../../constants/styles";
-import { createLocationUrl, getReadableAdress } from "../../util/http";
+import { createLocationUrl, getReadableAddress } from "../../util/http";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const LocationPicker = ({ locationHandler }) => {
@@ -22,18 +22,17 @@ const LocationPicker = ({ locationHandler }) => {
   }, [route]);
 
   useEffect(() => {
-    const getAdressOfLocation = async () => {
+    const getAddressOfLocation = async () => {
       if (pickedLocation) {
-        const adress = await getReadableAdress(pickedLocation);
-        locationHandler({ ...pickedLocation, adress });
+        const address = await getReadableAddress(pickedLocation);
+        locationHandler({ ...pickedLocation, address });
       }
     };
-    getAdressOfLocation();
+    getAddressOfLocation();
   }, [pickedLocation, locationHandler]);
 
   const getLocation = async () => {
     const location = await getCurrentPositionAsync();
-    console.log("location", location);
     setPickedLocation({
       lat: location.coords.latitude,
       lng: location.coords.longitude,

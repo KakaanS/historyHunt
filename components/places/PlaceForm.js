@@ -3,10 +3,11 @@ import { Colors } from "../../constants/styles";
 import ImagePicker from "../camera/ImagePicker";
 import LocationPicker from "./LocationPicker";
 import Button from "../ui/Button";
+import Place from "../../models/Place";
 import { useCallback, useState } from "react";
 
-const PlaceForm = () => {
-  const [title, setTitle] = useState();
+const PlaceForm = ({ addPlaceHandler }) => {
+  const [title, setTitle] = useState("");
   const [image, setImage] = useState();
   const [location, setLocation] = useState();
 
@@ -19,11 +20,13 @@ const PlaceForm = () => {
   };
 
   const locationHandler = useCallback((locationInfo) => {
-    setLocation(locationInfo.adress);
+    setLocation(locationInfo);
   }, []);
 
   const savePoint = () => {
-    console.log("save point", location);
+    const place = new Place(title, image, location);
+    console.log("savedPOINT", place);
+    addPlaceHandler(place);
   };
 
   return (
