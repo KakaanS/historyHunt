@@ -6,9 +6,11 @@ import OutlinedButton from "../ui/OutlinedButton";
 import { Colors } from "../../constants/styles";
 import { createLocationUrl } from "../../util/http";
 import IconButton from "../ui/IconButton";
+import { useNavigation } from "@react-navigation/native";
 
 const LocationPicker = () => {
   const [pickedLocation, setPickedLocation] = useState();
+  const navigation = useNavigation();
 
   const getLocation = async () => {
     const location = await getCurrentPositionAsync();
@@ -20,7 +22,7 @@ const LocationPicker = () => {
   };
 
   const pickOnMap = () => {
-    console.log("Picking on map");
+    navigation.navigate("MapScreen");
   };
 
   let previewContent = <Text>No picked location... yet!</Text>;
