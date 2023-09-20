@@ -1,16 +1,27 @@
 import { View, StyleSheet, Image, Text } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getCurrentPositionAsync } from "expo-location";
 
 import OutlinedButton from "../ui/OutlinedButton";
 import { Colors } from "../../constants/styles";
 import { createLocationUrl } from "../../util/http";
 import IconButton from "../ui/IconButton";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { set } from "react-native-reanimated";
 
 const LocationPicker = () => {
   const [pickedLocation, setPickedLocation] = useState();
   const navigation = useNavigation();
+  const route = useRoute();
+
+  useEffect(() => {
+    if (route.params) {
+      setPickedLocation({
+        lat: route.params.latitude,
+        lng: route.params.longitude,
+      });
+    }
+  }, [route]);
 
   const getLocation = async () => {
     const location = await getCurrentPositionAsync();

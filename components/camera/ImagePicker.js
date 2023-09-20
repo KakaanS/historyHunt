@@ -8,6 +8,7 @@ import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
 } from "expo-location";
+import OutlinedButton from "../ui/OutlinedButton";
 
 const ImagePicker = () => {
   const cameraRef = useRef();
@@ -62,14 +63,13 @@ const ImagePicker = () => {
         ref={cameraRef}
         type={Camera.Constants.Type.back}
         onCameraReady={handleCameraReady}
-      >
-        <IconButton
-          icon="camera"
-          size={32}
-          color={Colors.primary100}
-          onPress={takePicture}
-        />
-      </Camera>
+      ></Camera>
+      <OutlinedButton
+        icon="camera"
+        size={32}
+        color={Colors.primary100}
+        pressHandler={takePicture}
+      />
       <View style={styles.preview}>{previewContent}</View>
     </View>
   );
