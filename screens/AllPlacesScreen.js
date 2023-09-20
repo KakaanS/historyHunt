@@ -1,16 +1,17 @@
+import { useEffect, useState } from "react";
 import PlacesList from "../components/places/PlacesList";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import IconButton from "../components/ui/IconButton";
 import { View, StyleSheet } from "react-native";
 
-const AllPlacesScreen = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const places = [];
+const AllPlacesScreen = ({ navigation, route }) => {
+  const [places, setPlaces] = useState([]);
 
-  if (route.params?.place) {
-    places.push(route.params.place);
-  }
+  useEffect(() => {
+    const place = route.params?.place;
+    if (place) {
+      setPlaces((prev) => [...prev, place]);
+    }
+  }, [route]);
 
   return (
     <View style={styles.headerContainer}>
