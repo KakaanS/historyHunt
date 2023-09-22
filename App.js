@@ -15,7 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 //Screens
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
-import WelcomeScreen from "./screens/WelcomeScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 import SpecificHuntScreen from "./screens/SpecificHuntScreen";
 import AddplaceScreen from "./screens/AddPlaceScreen";
 import MapScreen from "./screens/MapScreen";
@@ -85,7 +85,7 @@ const Navigation = () => {
           }}
           drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
-          <Drawer.Screen name="Welcome" component={WelcomeScreen} />
+          <Drawer.Screen name="Profile" component={ProfileScreen} />
           <Drawer.Screen name="AllHuntsScreen" component={AllHuntsScreen} />
           <Drawer.Screen
             name="SpecificHuntScreen"

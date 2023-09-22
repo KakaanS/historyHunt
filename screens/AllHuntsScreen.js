@@ -10,6 +10,7 @@ import { getData } from "../util/dataBaseReq";
 
 const AllHuntsScreen = ({ navigation }) => {
   const [huntTitles, setHuntTitles] = useState([]);
+  const [adressData, setAdressData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,17 +21,16 @@ const AllHuntsScreen = ({ navigation }) => {
         if (huntData.title) {
           huntTitlesArray.push(huntData.title);
         }
+        setAdressData(huntData);
       });
       setHuntTitles(huntTitlesArray);
       setIsLoading(false);
     });
   }, []);
 
-  const navigateToSpecificHunt = (hunt) => {
-    navigation.navigate("SpecificHuntScreen", { hunt });
+  const navigateToSpecificHunt = () => {
+    navigation.navigate("GameScreen", { adressData });
   };
-
-  // Ovan ska vi navigera till den jakt vi klickar på, men den ska också vara en "map" där vi kan se alla jaktens platser.
 
   return (
     <View style={styles.container}>
@@ -40,10 +40,7 @@ const AllHuntsScreen = ({ navigation }) => {
         <ScrollView>
           {huntTitles.map((title, index) => (
             <View key={index}>
-              <Text
-                onPress={() => navigateToSpecificHunt(title)}
-                style={styles.title}
-              >
+              <Text onPress={navigateToSpecificHunt} style={styles.title}>
                 {title}
               </Text>
             </View>
