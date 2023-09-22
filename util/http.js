@@ -1,4 +1,3 @@
-import axios from "axios";
 import { REACT_APP_API_KEY, REACT_APP_GOOGLE_API_KEY } from "@env";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -21,15 +20,29 @@ export const getReadableAddress = async ({ lat, lng }) => {
 };
 
 const authenticate = async (mode, email, password) => {
-  const resp = await axios.post(
-    `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=` + API_KEY,
-    {
+  const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`;
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
       email,
       password,
       returnSecureToken: true,
-    }
-  );
-  return resp.data.idToken;
+    }),
+  };
+
+  const response = await fetch(url, requestOptions);
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error.message);
+  }
+
+  const data = await response.json();
+  return data.idToken;
 };
 
 export const signupUser = (email, password) => {
