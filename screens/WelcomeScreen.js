@@ -23,7 +23,7 @@ const WelcomeScreen = () => {
   }, []);
 
   const navigatToAllPlaces = () => {
-    navigation.navigate("AllPlacesScreen");
+    navigation.navigate("SpecificHuntScreen");
   };
 
   return (

@@ -17,6 +17,7 @@ import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import AllPlacesScreen from "./screens/AllPlacesScreen";
+import SpecificHuntScreen from "./screens/SpecificHuntScreen";
 import AddplaceScreen from "./screens/AddPlaceScreen";
 import MapScreen from "./screens/MapScreen";
 
@@ -85,8 +86,8 @@ const Navigation = () => {
         >
           <Drawer.Screen name="Welcome" component={WelcomeScreen} />
           <Drawer.Screen
-            name="AllPlacesScreen"
-            component={AllPlacesScreen}
+            name="SpecificHuntScreen"
+            component={SpecificHuntScreen}
             options={({ navigation }) => ({
               headerRight: ({ tintColor }) => (
                 <IconButton
