@@ -6,9 +6,13 @@ import {
   Text,
 } from "react-native";
 import React, { useState, useEffect } from "react";
+
 import { getData } from "../util/dataBaseReq";
+import { useHuntContext } from "../store/HuntContext";
 
 const AllHuntsScreen = ({ navigation }) => {
+  const { completedHunts, markhuntAsCompleted, isHuntCompleted } =
+    useHuntContext();
   const [huntTitles, setHuntTitles] = useState([]);
   const [allData, setAllData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +33,7 @@ const AllHuntsScreen = ({ navigation }) => {
       setHuntTitles(huntTitlesArray);
       setIsLoading(false);
     });
-  }, []);
+  }, [setAllData]);
 
   const navigateToSpecificHunt = (index) => {
     const huntData = allData[index];
@@ -45,8 +49,10 @@ const AllHuntsScreen = ({ navigation }) => {
           {huntTitles.map((title, index) => (
             <View key={index} style={styles.hunts}>
               <Text
+                style={
+                  isHuntCompleted(index) ? styles.completedText : styles.title
+                }
                 onPress={() => navigateToSpecificHunt(index)}
-                style={styles.title}
               >
                 {title}
               </Text>
@@ -73,6 +79,11 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderWidth: 1,
     borderRadius: 10,
+  },
+  completedText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    textDecorationLine: "line-through",
   },
 });
 

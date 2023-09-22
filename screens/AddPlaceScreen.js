@@ -2,7 +2,7 @@ import PlaceForm from "../components/hunts/PlaceForm";
 
 const AddPlaceScreen = ({ navigation }) => {
   const addPlaceHandler = (place) => {
-    navigation.navigate("SpecificHuntScreen", { place });
+    navigation.navigate("Add Hunt", { place });
   };
   return <PlaceForm addPlaceHandler={addPlaceHandler} />;
 };

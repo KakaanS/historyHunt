@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 import ImagePicker from "../components/camera/ImagePicker";
 import React, { Component, useState, useContext } from "react";
 import IconButton from "../components/ui/IconButton";
@@ -36,28 +36,30 @@ const ProfilePage = ({ navigation }) => {
     );
   } else {
     return (
-      <View style={styles.container}>
-        <View style={styles.profilePictureContainer}>
-          <View style={styles.profilePicture}>
-            {profilePictureExists ? (
-              <Image
-                style={styles.image}
-                source={{ uri: profilePicture.image }}
-              />
-            ) : null}
-            <View style={styles.profilePictureEdit}>
-              <IconButton
-                icon={"pencil"}
-                size={15}
-                onPress={editProfilePictureButton}
-              />
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.profilePictureContainer}>
+            <View style={styles.profilePicture}>
+              {profilePictureExists ? (
+                <Image
+                  style={styles.image}
+                  source={{ uri: profilePicture.image }}
+                />
+              ) : null}
+              <View style={styles.profilePictureEdit}>
+                <IconButton
+                  icon={"pencil"}
+                  size={15}
+                  onPress={editProfilePictureButton}
+                />
+              </View>
             </View>
+            <Text style={styles.username}>{username}</Text>
           </View>
-          <Text style={styles.username}>{username}</Text>
+          <Text style={styles.header}>Hunts:</Text>
+          <AllHuntsScreen navigation={navigation} />
         </View>
-        <Text style={styles.header}>Hunts:</Text>
-        <AllHuntsScreen navigation={navigation} />
-      </View>
+      </ScrollView>
     );
   }
 };

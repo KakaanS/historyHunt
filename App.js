@@ -23,6 +23,7 @@ import GameScreen from "./screens/GameScreen";
 
 //Tools
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
+import { HuntProvider } from "./store/HuntContext";
 import IconButton from "./components/ui/IconButton";
 import { Colors } from "./constants/styles";
 
@@ -85,7 +86,7 @@ const Navigation = () => {
         >
           <Drawer.Screen name="Profile" component={ProfileScreen} />
           <Drawer.Screen
-            name="SpecificHuntScreen"
+            name="Add Hunt"
             component={SpecificHuntScreen}
             options={({ navigation }) => ({
               headerRight: ({ tintColor }) => (
@@ -98,13 +99,22 @@ const Navigation = () => {
               ),
             })}
           />
-          <Drawer.Screen name="AddPlace" component={AddplaceScreen} />
+          <Drawer.Screen
+            name="AddPlace"
+            component={AddplaceScreen}
+            options={{ drawerItemStyle: { height: 0 } }}
+          />
           <Drawer.Screen
             name="MapScreen"
             component={MapScreen}
-            options={{ title: "Choose location" }}
+            options={{ drawerItemStyle: { height: 0 } }}
           />
-          <Drawer.Screen name="GameScreen" component={GameScreen} />
+          <Drawer.Screen
+            name="GameScreen"
+            component={GameScreen}
+            options={{ drawerItemStyle: { height: 0 } }}
+            //uppskatta denna "lite sent på kvällen lösningen" patrik.
+          />
         </Drawer.Navigator>
       ) : (
         <AuthStack />
@@ -118,7 +128,9 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <AuthContextProvider>
-        <Navigation />
+        <HuntProvider>
+          <Navigation />
+        </HuntProvider>
       </AuthContextProvider>
     </>
   );
