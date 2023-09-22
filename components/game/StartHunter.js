@@ -3,11 +3,11 @@ import { View, Text, StyleSheet } from "react-native";
 import Button from "../ui/Button";
 import { Colors } from "../../constants/styles";
 
-const StartHunter = () => {
+const StartHunter = ({ onStartGame }) => {
   return (
-    <View>
-      <Text>Start the game by clicking the button</Text>
-      <Button>Start</Button>
+    <View style={styles.container}>
+      <Text style={styles.title}>Start the game by clicking the button</Text>
+      <Button onPress={onStartGame}>Start</Button>
     </View>
   );
 };
