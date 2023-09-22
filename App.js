@@ -20,6 +20,7 @@ import SpecificHuntScreen from "./screens/SpecificHuntScreen";
 import AddplaceScreen from "./screens/AddPlaceScreen";
 import MapScreen from "./screens/MapScreen";
 import AllHuntsScreen from "./screens/AllHuntsScreen";
+import GameScreen from "./screens/GameScreen";
 
 //Tools
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
@@ -106,6 +107,7 @@ const Navigation = () => {
             component={MapScreen}
             options={{ title: "Choose location" }}
           />
+          <Drawer.Screen name="GameScreen" component={GameScreen} />
         </Drawer.Navigator>
       ) : (
         <AuthStack />

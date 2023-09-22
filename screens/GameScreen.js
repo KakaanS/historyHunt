@@ -1,7 +1,7 @@
-import StartHunt from "../components/game/StartHunt";
+import StartHunter from "../components/game/StartHunter.js";
 
 const GameScreen = (props) => {
-  return <StartHunt />;
+  return <StartHunter />;
 };
 
 export default GameScreen;
