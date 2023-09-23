@@ -9,6 +9,7 @@ const AuthForm = ({ isLogin, onSubmit, credentialsInvalid }) => {
   const [enteredConfirmEmail, setEnteredConfirmEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState("");
+  const [displayName, setdisplayName] = useState("");
 
   const {
     email: emailIsInvalid,
@@ -31,11 +32,15 @@ const AuthForm = ({ isLogin, onSubmit, credentialsInvalid }) => {
       case "confirmPassword":
         setEnteredConfirmPassword(enteredValue);
         break;
+      case "displayName":
+        setdisplayName(enteredValue);
+        break;
     }
   };
 
   const submitHandler = () => {
     onSubmit({
+      displayName: displayName,
       email: enteredEmail,
       confirmEmail: enteredConfirmEmail,
       password: enteredPassword,
@@ -46,6 +51,13 @@ const AuthForm = ({ isLogin, onSubmit, credentialsInvalid }) => {
   return (
     <View style={styles.form}>
       <View>
+        {!isLogin && (
+          <Input
+            label="Display name"
+            onUpdateValue={updateInputValueHandler.bind(this, "displayName")}
+            value={displayName}
+          />
+        )}
         <Input
           label="Email Address"
           onUpdateValue={updateInputValueHandler.bind(this, "email")}

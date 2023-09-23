@@ -11,18 +11,19 @@ import {
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Button } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 //Screens
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
-import WelcomeScreen from "./screens/WelcomeScreen";
-import AllPlacesScreen from "./screens/AllPlacesScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import SpecificHuntScreen from "./screens/SpecificHuntScreen";
 import AddplaceScreen from "./screens/AddPlaceScreen";
+import MapScreen from "./screens/MapScreen";
+import GameScreen from "./screens/GameScreen";
 
 //Tools
 import AuthContextProvider, { AuthContext } from "./store/AuthContext";
+import { HuntProvider } from "./store/HuntContext";
 import IconButton from "./components/ui/IconButton";
 import { Colors } from "./constants/styles";
 
@@ -83,10 +84,10 @@ const Navigation = () => {
           }}
           drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
-          <Drawer.Screen name="Welcome" component={WelcomeScreen} />
+          <Drawer.Screen name="Profile" component={ProfileScreen} />
           <Drawer.Screen
-            name="AllPlacesScreen"
-            component={AllPlacesScreen}
+            name="Add Hunt"
+            component={SpecificHuntScreen}
             options={({ navigation }) => ({
               headerRight: ({ tintColor }) => (
                 <IconButton
@@ -98,7 +99,22 @@ const Navigation = () => {
               ),
             })}
           />
-          <Drawer.Screen name="AddPlace" component={AddplaceScreen} />
+          <Drawer.Screen
+            name="AddPlace"
+            component={AddplaceScreen}
+            options={{ drawerItemStyle: { height: 0 } }}
+          />
+          <Drawer.Screen
+            name="MapScreen"
+            component={MapScreen}
+            options={{ drawerItemStyle: { height: 0 } }}
+          />
+          <Drawer.Screen
+            name="GameScreen"
+            component={GameScreen}
+            options={{ drawerItemStyle: { height: 0 } }}
+            //uppskatta denna "lite sent på kvällen lösningen" patrik.
+          />
         </Drawer.Navigator>
       ) : (
         <AuthStack />
@@ -112,7 +128,9 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <AuthContextProvider>
-        <Navigation />
+        <HuntProvider>
+          <Navigation />
+        </HuntProvider>
       </AuthContextProvider>
     </>
   );

@@ -1,7 +1,10 @@
-import PlaceForm from "../components/places/PlaceForm";
+import PlaceForm from "../components/hunts/PlaceForm";
 
-const AddPlaceScreen = () => {
-  return <PlaceForm />;
+const AddPlaceScreen = ({ navigation }) => {
+  const addPlaceHandler = (place) => {
+    navigation.navigate("Add Hunt", { place });
+  };
+  return <PlaceForm addPlaceHandler={addPlaceHandler} />;
 };
 
 export default AddPlaceScreen;

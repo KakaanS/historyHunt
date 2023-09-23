@@ -1,16 +1,30 @@
 import { View, StyleSheet, Text, Image } from "react-native";
 import { Camera, CameraType } from "expo-camera";
 import IconButton from "../ui/IconButton";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Dimensions } from "react-native";
 import { Colors } from "../../constants/styles";
+import {
+  requestForegroundPermissionsAsync,
+  getCurrentPositionAsync,
+} from "expo-location";
+import OutlinedButton from "../ui/OutlinedButton";
 
-const ImagePicker = () => {
+const ImagePicker = ({ imageHandler, cameraViewFront }) => {
   const cameraRef = useRef();
   const [photo, setPhoto] = useState();
   const [isCameraReady, setCameraReady] = useState(false);
   const [cameraPermission, requestCameraPermission] =
     Camera.useCameraPermissions();
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Location permission denied");
+      }
+    })();
+  }, []);
 
   if (!cameraPermission) {
     return <View />;
@@ -34,6 +48,7 @@ const ImagePicker = () => {
         quality: 0.8,
       });
       setPhoto(photo);
+      imageHandler(photo.uri);
     }
   };
 
@@ -42,22 +57,26 @@ const ImagePicker = () => {
     previewContent = <Image source={{ uri: photo.uri }} style={styles.photo} />;
   }
 
+  let cameraType = Camera.Constants.Type.back;
+  if (cameraViewFront) {
+    cameraType = Camera.Constants.Type.front;
+  }
+
   return (
     <View style={styles.container}>
       <Camera
         style={styles.camera}
         ref={cameraRef}
-        type={Camera.Constants.Type.back}
+        type={cameraType}
         onCameraReady={handleCameraReady}
-      >
-        <IconButton
-          icon="camera"
-          size={32}
-          color="white"
-          onPress={takePicture}
-        />
-      </Camera>
-      <View style={styles.preview}>{previewContent}</View>
+      ></Camera>
+      <OutlinedButton
+        icon="camera"
+        size={32}
+        color={Colors.primary100}
+        pressHandler={takePicture}
+      />
+      {photo && <View style={styles.preview}>{previewContent}</View>}
     </View>
   );
 };
