@@ -17,15 +17,11 @@ const LoginScreen = () => {
   }) => {
     setIsAuthenticating(true);
     try {
-      const data = await http.signinUser(
-        email,
-        password,
-        displayName,
-        userName
-      );
+      const data = await http.signinUser(email, password);
       const token = data.idToken;
       authCtx.authenticate(token);
     } catch (error) {
+      console.log("HÄR", error);
       alert("Wrong credentials");
     }
     setIsAuthenticating(false);
