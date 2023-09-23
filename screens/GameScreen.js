@@ -22,7 +22,11 @@ const GameScreen = ({ route, navigation }) => {
   return (
     <View>
       {gameStarted ? (
-        <GameMap quitGame={quitGame} gameLocations={huntData.places} />
+        <GameMap
+          quitGame={quitGame}
+          gameLocations={huntData.places}
+          title={huntData.title}
+        />
       ) : (
         <StartHunter onStartGame={onStartGame} firstLocation={{ lat, lng }} />
       )}

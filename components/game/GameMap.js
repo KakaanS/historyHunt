@@ -7,8 +7,8 @@ import Button from "../ui/Button";
 import { FAB } from "react-native-paper";
 import { useHuntContext } from "../../store/HuntContext";
 
-const GameMap = ({ navigation, quitGame, gameLocations }) => {
-  const { markHuntAsCompleted } = useHuntContext(); // Correct function name
+const GameMap = ({ navigation, quitGame, gameLocations, title }) => {
+  const { markHuntAsCompleted } = useHuntContext();
   const [initialRegion, setInitialRegion] = useState(null);
   const [photoMode, setPhotoMode] = useState(false);
   const [doneMarkers, setDoneMarkers] = useState({});
@@ -25,8 +25,8 @@ const GameMap = ({ navigation, quitGame, gameLocations }) => {
     }
   }, [gameLocations]);
 
-  const completeHandler = (index) => {
-    markHuntAsCompleted(index);
+  const completeHandler = (title) => {
+    markHuntAsCompleted(title);
     setInitialRegion(null);
     quitGame();
   };
@@ -61,6 +61,9 @@ const GameMap = ({ navigation, quitGame, gameLocations }) => {
   const Game = () => {
     const doneCount = Object.values(doneMarkers).filter(Boolean).length;
     const totalCount = gameLocations.length;
+    if (totalCount === doneCount) {
+      completeHandler(title);
+    }
 
     return (
       <View>
@@ -85,14 +88,6 @@ const GameMap = ({ navigation, quitGame, gameLocations }) => {
             );
           })}
         </MapView>
-        {gameLocations.map((location, index) => (
-          <FAB
-            key={index}
-            style={styles.checkFab}
-            icon="check"
-            onPress={() => completeHandler(index)}
-          />
-        ))}
 
         <FAB
           style={styles.fab}

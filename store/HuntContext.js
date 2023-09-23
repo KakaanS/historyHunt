@@ -10,14 +10,16 @@ export const HuntProvider = ({ children }) => {
   const [completedHunts, setCompletedHunts] = useState([]);
 
   const markHuntAsCompleted = (index) => {
-    // Update function name
+    console.log("markHuntAsCompleted", index, "completedHunts", completedHunts);
     setCompletedHunts((prev) => [...prev, index]);
   };
   const isHuntCompleted = (index) => {
     return completedHunts.includes(index);
   };
   return (
-    <HuntContext.Provider value={{ markHuntAsCompleted, isHuntCompleted }}>
+    <HuntContext.Provider
+      value={{ markHuntAsCompleted, isHuntCompleted, completedHunts }}
+    >
       {children}
     </HuntContext.Provider>
   );

@@ -11,8 +11,7 @@ import { getData } from "../util/dataBaseReq";
 import { useHuntContext } from "../store/HuntContext";
 
 const AllHuntsScreen = ({ navigation }) => {
-  const { completedHunts, markhuntAsCompleted, isHuntCompleted } =
-    useHuntContext();
+  const { completedHunts, isHuntCompleted } = useHuntContext();
   const [huntTitles, setHuntTitles] = useState([]);
   const [allData, setAllData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,13 +39,18 @@ const AllHuntsScreen = ({ navigation }) => {
     navigation.navigate("GameScreen", { huntData });
   };
 
+  const planedHunts = huntTitles.filter(
+    (title) => !completedHunts.includes(title)
+  );
+
   return (
     <View style={styles.container}>
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <ScrollView>
-          {huntTitles.map((title, index) => (
+          <Text style={styles.title}>Planned hunts</Text>
+          {planedHunts.map((title, index) => (
             <View key={index} style={styles.hunts}>
               <Text
                 style={
@@ -58,6 +62,14 @@ const AllHuntsScreen = ({ navigation }) => {
               </Text>
             </View>
           ))}
+          <View>
+            <Text style={styles.title}>Completed Hunts</Text>
+            {completedHunts.map((title, index) => (
+              <View key={index} style={styles.hunts}>
+                <Text style={styles.title}>{title}</Text>
+              </View>
+            ))}
+          </View>
         </ScrollView>
       )}
     </View>
